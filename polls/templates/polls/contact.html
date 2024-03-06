@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+{% block body %}
+    <div id="body">
+        <div class="header">
+            <div class="contact">
+                <h1>Contact</h1>
+                <h2>DO NOT HESITATE TO CONTACT US</h2>
+                <form action="{% url 'contact' %}" method="post" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <input type="text" name="Name" placeholder="Name" value="{{ contact.Name }}" onblur="this.value=!this.value?'':this.value;" onfocus="this.select()">
+                    <input type="text" name="EmailAddress" placeholder="EmailAddress" value="{{ contact.EmailAddress }}" onblur="this.value=!this.value?'':this.value;" onfocus="this.select()">
+                    <input type="text" name="Subject" placeholder="Subject" value="{{ contact.Subject }}" onblur="this.value=!this.value?'':this.value;" onfocus="this.select()">
+                    <textarea name="message" placeholder="Message" cols="50" rows="7"></textarea>
+                    <input type="submit" value="Send" id="submit">
+                </form>
+                
+            </div>
+        </div>
+        {% if messages %}
+                    {% for message in messages %}
+                    <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: antiquewhite; text-align: center">{{ message }}</li> -->
+                    <div class="alert alert-success d-flex align-items-center" role="alert" style="height: 0; width: 70%; margin: 34px auto; width: 377px;" >
+                        <div style="width: 100%; text-align: center;" class="text-center">
+                            {{ message }}
+                        </div>
+                      </div>
+                    {% endfor %}
+                {% endif %}
+    </div>
+    <script>
+        function validateForm() {
+            var name = document.getElementsByName("Name")[0].value;
+            var email = document.getElementsByName("EmailAddress")[0].value;
+            var subject = document.getElementsByName("Subject")[0].value;
+            var message = document.getElementsByName("message")[0].value;
+        
+            if (name === "" || email === "" || subject === "" || message === "") {
+                alert("All fields are required");
+                return false; // Prevent form submission
+            }
+    
+            return true; // Allow form submission
+        }
+    </script>
+{% endblock body %}

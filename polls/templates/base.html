@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %} - Space Science Website Template</title>
+	<link rel="stylesheet" href="{% static 'polls/style.css' %}" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/mobile.css' %}">
+	<script src="{% static 'polls/mobile.js' %}" type="text/javascript"></script>
+</head>
+
+<body>
+	<div id="page">
+		<div id="header">
+			<div>
+				<a href="{% url 'home' %}" class="logo"><img src="{% static 'polls/logo.png' %}" alt=""></a>
+				<ul id="navigation" class="top-menu-bg">
+
+					{% url 'home' as home_url %}
+					<li class="{% if request.get_full_path == home_url %}selected{% endif %}">
+						<a href="{% url 'home' %}">Home</a>
+					</li>
+
+					{% url 'about' as about_url %}
+					<li class="{% if request.get_full_path == about_url %}selected{% endif %}">
+						<a href="{% url 'about' %}">About</a>
+					</li>
+
+					{% url 'projects' as projects_url %}
+					<li class="{% if request.get_full_path == projects_url %}selected{% endif %}">
+						<a href="{% url 'projects' %}">Projects</a>
+
+					</li>
+
+					{% url 'blog' as blog_url %}
+					<li class="{% if request.get_full_path == blog_url %}selected{% endif %}">
+						<a href="{% url 'blog' %}">Blog</a>
+
+					</li>
+
+					{% url 'contact' as contact_url %}
+					<li class="{% if request.get_full_path == contact_url %}selected{% endif %}">
+						<a href="{% url 'contact' %}">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		{% block body %}
+	
+		{% endblock %}
+		<div id="footer">
+			<div class="connect">
+				<div>
+					<h1>FOLLOW OUR MISSIONS ON</h1>
+					<div>
+						<a href="http://freewebsitetemplates.com/go/facebook/" class="facebook">facebook</a>
+						<a href="http://freewebsitetemplates.com/go/twitter/" class="twitter">twitter</a>
+						<a href="http://freewebsitetemplates.com/go/googleplus/" class="googleplus">googleplus</a>
+						<a href="http://pinterest.com/fwtemplates/" class="pinterest">pinterest</a>
+					</div>
+				</div>
+			</div>
+			<div class="footnote">
+				<div>
+					<p>&copy; 2023 BY AO2 WEB & TECHNOLOGY | ALL RIGHTS RESERVED</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

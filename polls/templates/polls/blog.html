@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock %}
+{% block body %}
+
+<div id="body">
+	<div class="header">
+		<div>
+			<h1>Blog</h1> 
+			<div class="article">
+				{% for opt in page_obj %}
+				<ul>
+					<li>
+						{% comment %} <h4 style="color: aliceblue;">{{Output}}</h4> {% endcomment %}
+						<a><img src="{{opt.image.url}}" alt=""></a>
+						<h1>{{opt.name}}</h1>
+						<span>{{opt.datetimes}}</span>
+						<p>{{ opt.content|slice:":200" }}....</p>
+						<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{opt.slug}}/"
+						class="more">More</a>
+					
+					</li>
+					<hr>
+				</ul>
+				{% endfor %}
+				<center>
+					{%if page_obj.has_previous %} 
+					<a href="?page={{page_obj.previous_page_number}}">PREV</a> 
+					{% endif %}
+					<span>{{page_obj.number}}</span>
+
+					{%if page_obj.has_next %}
+					<a href="?page={{page_obj.next_page_number}}">NEXT</a>
+					{% endif %}
+				</center>
+			</div>
+			<div class="sidebar">
+
+				<ul>
+					<li>
+						<h1>FEATURED POST</h1>
+						{% for opt in featured_query %}
+						<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{opt.slug}}/"><img src="{{opt.image.url}}" alt=""></a>
+						<h2>{{opt.name}}</h2>
+						<span>{{opt.datetimes}}</span>
+						{%endfor%}
+					</li>
+					<li>
+						<h1>RECENT POSTS</h1>
+						<ul>
+							{% for opt in recent_query %}
+							<li>
+								<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{opt.slug}}/"><img src="{{opt.image.url}}" alt=""></a>
+								<h2>{{opt.name}}</h2>
+								<span>{{opt.datetimes}}</span>
+							</li>
+							{%endfor%}
+							
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}SinglePost{% endblock %}
+{% block body %}
+
+<div id="body">
+	<div class="header">
+		<div>
+			<h1>{{post.name}}</h1>
+			<div class="article">
+				<a><img src="{{post.image.url}}" alt=""></a>
+				<span>{{post.datetimes}}</span>
+				<p>
+					{{post.content|safe}}</p>
+			</div>
+			<div class="sidebar">
+				<ul>
+					{% for opt in featured_query %}
+					<li>
+						<h1>FEATURED POST</h1>
+						<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{opt.slug}}/"><img src="{{opt.image.url}}" alt=""></a>
+						<h2>{{opt.name}}</h2>
+						<span>{{opt.datetimes}}</span>
+					</li>
+					{%endfor%}
+					<li> 
+						<h1>RECENT POSTS</h1>
+						<ul>
+							{%for opt in recent_query%}
+							<li>
+
+								<a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{opt.slug}}/"><img src="{{opt.image.url}}" alt=""></a>
+								<h2>{{opt.name}}</h2>
+								<span>{{opt.datetimes}}</span>
+
+							</li>
+							{%endfor%}
+
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock body %}
